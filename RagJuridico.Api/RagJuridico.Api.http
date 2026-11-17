@@ -1,0 +1,29 @@
+﻿@api = http://localhost:5024
+
+### SaÃºde
+GET {{api}}/health
+
+### Enviar documento (PDF, TXT ou MD)
+POST {{api}}/api/documentos
+Content-Type: multipart/form-data; boundary=limite
+
+--limite
+Content-Disposition: form-data; name="arquivo"; filename="contrato-exemplo.pdf"
+Content-Type: application/pdf
+
+< ../samples/contrato-exemplo.pdf
+--limite--
+
+### Listar documentos indexados
+GET {{api}}/api/documentos
+
+### Perguntar
+POST {{api}}/api/chat
+Content-Type: application/json
+
+{
+  "pergunta": "Qual Ã© a multa em caso de rescisÃ£o antecipada?"
+}
+
+### Remover documento (use o id retornado no upload)
+DELETE {{api}}/api/documentos/COLOQUE_O_ID

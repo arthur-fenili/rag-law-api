@@ -1,0 +1,17 @@
+# Infra local. O Ollama roda nativo no Windows (usa a GPU direto), fora do Docker.
+name: rag-law
+
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant
+    restart: unless-stopped
+    ports:
+      # Só localhost: o Qdrant não tem autenticação por padrão.
+      - "127.0.0.1:6333:6333" # REST + dashboard (http://localhost:6333/dashboard)
+      - "127.0.0.1:6334:6334" # gRPC (usado pela API C#)
+    volumes:
+      - qdrant_storage:/qdrant/storage
+
+volumes:
+  qdrant_storage:
